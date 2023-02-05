@@ -27,8 +27,16 @@ def smoothStepFade(t):
 def lerp(t, a1, a2):
     return a1 + t*(a2-a1)
 
-def noise2d(x, y, P):
-    Permutations = P
+def fetch(I, r):
+    I += 1
+    if (r > 1):
+        I %= r
+    return I
+
+def noise2d(x, y, P, r):
+    if (r > 1):
+        x = x%r
+        y = y%r
 
     X = floor(x) & 255
     Y = floor(y) & 255
@@ -41,9 +49,9 @@ def noise2d(x, y, P):
     bottomRight = vec2(xf-1.0, yf)
     bottomLeft = vec2(xf, yf)
 
-    valueTopRight = P[P[X+1]+Y+1]
-    valueTopLeft = P[P[X]+Y+1]
-    valueBottomRight = P[P[X+1]+Y]
+    valueTopRight = P[P[fetch(X, r)]+fetch(Y, r)]
+    valueTopLeft = P[P[X]+fetch(Y, r)]
+    valueBottomRight = P[P[fetch(X, r)]+Y]
     valueBottomLeft = P[P[X]+Y]
 
     dotTopRight = dotp(topRight, getConstantVector(valueTopRight))
