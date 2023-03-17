@@ -2,21 +2,22 @@ import png
 from noise2d import noise2d
 import random
 
-reps = 2
-width = 256 * reps
-height = 256 * reps
+width = 256
+height = 256
 img = []
 P = list(range(0,256))
 random.shuffle(P)
 
 for y in range(height):
     row = ()
+
     for x in range(width):
         n = 0.1
         a = 1.5
         f = .005
+
         for o in range(4):
-            v = a*noise2d(x*f, y*f, P, reps)
+            v = a*noise2d(x*f, y*f, P, 1)
             n += v
             a *= 0.5
             f *= 2
