@@ -6,7 +6,7 @@ class vec2:
         self.y = y
 
 def dotp(self: vec2, other: vec2):
-        return self.x*other.x + self.y*other.y
+    return self.x*other.x + self.y*other.y
 
 def getConstantVector(v):
     h = v & 3
@@ -49,17 +49,17 @@ def noise2d(x, y, P, r):
     bottom_right = vec2(xf-1.0, yf)
     bottom_left = vec2(xf, yf)
 
-    valueTopRight = P[P[fetch(X, r)]+fetch(Y, r)]
-    valueTopLeft = P[P[X]+fetch(Y, r)]
-    valueBottomRight = P[P[fetch(X, r)]+Y]
-    valueBottomLeft = P[P[X]+Y]
+    value_top_right = P[P[fetch(X, r)]+fetch(Y, r)]
+    value_top_left = P[P[X]+fetch(Y, r)]
+    value_bottom_right = P[P[fetch(X, r)]+Y]
+    value_bottom_left = P[P[X]+Y]
 
-    dotTopRight = dotp(top_right, getConstantVector(valueTopRight))
-    dotTopLeft = dotp(top_left, getConstantVector(valueTopLeft))
-    dotBottomRight = dotp(bottom_right, getConstantVector(valueBottomRight))
-    dotBottomLeft = dotp(bottom_left, getConstantVector(valueBottomLeft))
+    dot_top_right = dotp(top_right, getConstantVector(value_top_right))
+    dot_top_left = dotp(top_left, getConstantVector(value_top_left))
+    dot_bottom_right = dotp(bottom_right, getConstantVector(value_bottom_right))
+    dot_bottom_left = dotp(bottom_left, getConstantVector(value_bottom_left))
 
     u = smoothStepFade(xf)
     v = smoothStepFade(yf)
 
-    return lerp(u, lerp(v, dotBottomLeft, dotTopLeft), lerp(v, dotBottomRight, dotTopRight))
+    return lerp(u, lerp(v, dot_bottom_left, dot_top_left), lerp(v, dot_bottom_right, dot_top_right))
